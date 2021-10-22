@@ -1,34 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteItem } from '../actions/action';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore'
 import { makeStyles, createStyles } from '@material-ui/styles';
 import { User, Coffee, CartType } from './index'
+import type { NextPage } from 'next';
 import Link from 'next/link';
 
-const loginSelector = (state:any) => state.store.loginUser
-const coffeeSelector = (state:any) => state.store.coffee
-const cartSelector = (state:any) => state.store.cart
+const loginSelector = (state: any) => state.store.loginUser
+const coffeeSelector = (state: any) => state.store.coffee
+const cartSelector = (state: any) => state.store.cart
 
-  export const Cart: React.FC = () => {
-
+export const Cart: React.FC = () => {
   const classes = useStyle()
   const dispatch = useDispatch()
 
-  const history = useHistory()
-  const handleLink = (path:any) => history.push(path)
+  const login: User = useSelector(loginSelector)
+  const coffee: Coffee = useSelector(coffeeSelector)
+  const cart: CartType = useSelector(cartSelector)
 
-  const login:User = useSelector(loginSelector)
-  const coffee:Coffee = useSelector(coffeeSelector)
-  const cart:CartType = useSelector(cartSelector)
-
-  const [myCart, setMyCart] = useState <Mycart>([])
+  const [myCart, setMyCart] = useState<Mycart>([])
   const [cartItem, setCartItem] = useState<CartInfo>([])
   const [choiceCoffee, setChoiceCoffee] = useState<any>([])
 
-  type Mycart={
+  type Mycart = {
     coffee: {
       id?: number | undefined;
       name?: string | undefined;
@@ -46,7 +42,7 @@ const cartSelector = (state:any) => state.store.cart
     };
   }[]
 
-  type CartInfo={
+  type CartInfo = {
     id: number;
     quantity: number;
     total: number;
@@ -55,9 +51,9 @@ const cartSelector = (state:any) => state.store.cart
   }[]
 
   useEffect(() => {
-    let info:Mycart = []
-    let carts:CartInfo = []
-    let coffees:Coffee = []
+    let info: Mycart = []
+    let carts: CartInfo = []
+    let coffees: Coffee = []
     if (cart) {
       for (let i = 0; i < coffee.length; i++) {
         for (let j = 0; j < cart.cartItemList.length; j++) {
@@ -76,7 +72,7 @@ const cartSelector = (state:any) => state.store.cart
       setCartItem(carts)
     }
   }, [])
-  
+
 
   const googleLogin = () => {
     const google_auth_provider = new firebase.auth.GoogleAuthProvider()
@@ -92,7 +88,7 @@ const cartSelector = (state:any) => state.store.cart
     }
   }
 
-  const delItem = (index:number) => {
+  const delItem = (index: number) => {
     let info = myCart.slice()
     let carts = cartItem.slice()
     let coffees = choiceCoffee.slice()
@@ -125,7 +121,7 @@ const cartSelector = (state:any) => state.store.cart
   }
 
   const goCheck = () => {
-    handleLink('/check')
+    <Link href={`/check`}></Link>
   }
 
 
@@ -150,7 +146,7 @@ const cartSelector = (state:any) => state.store.cart
               <th>削除</th>
             </tr>
             {
-              myCart.map((item, index:number) => {
+              myCart.map((item, index: number) => {
                 return (
                   <tr className={classes.cartItem}>
                     <td>{item.coffee.name}</td>
@@ -174,7 +170,7 @@ const cartSelector = (state:any) => state.store.cart
           <div>
             {
               login ?
-              <Link href={`/check`}><button className={classes.button}>注文に進むへ</button></Link>:
+                <Link href={`/check`}><button className={classes.button}>注文に進むへ</button></Link> :
 
                 // <button onClick={() => { goCheck() }} className={classes.button}>注文に進む</button> :
                 <button onClick={() => { googleLogin() }} className={classes.button}>ログインして注文する</button>

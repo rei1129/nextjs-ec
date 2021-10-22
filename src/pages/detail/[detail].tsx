@@ -6,6 +6,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore'
 import { makeStyles, createStyles } from '@material-ui/styles';
 import { User, Topping, CartType } from '../../pages/index';
+import type { NextPage } from 'next';
 import { useRouter } from "next/router";
 import Link from "next/link";
 

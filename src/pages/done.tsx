@@ -1,13 +1,10 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import { makeStyles, createStyles } from '@material-ui/styles';
+import type { NextPage } from 'next';
 import Link from 'next/link';
 
 export const Done:React.FC = () => {
   const classes = useStyle()
-
-  const history = useHistory()
-  const handleLink = (path:any) => history.push(path)
 
   return (
     <div className={classes.body}>

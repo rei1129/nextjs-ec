@@ -5,7 +5,8 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore'
 import { fetchCartItem } from '../actions/action'
 import { makeStyles, createStyles } from '@material-ui/styles';
-import { User, Coffee, CartType } from './index'
+import { User, Coffee, CartType } from './index';
+import type { NextPage } from 'next';
 import { useRouter } from 'next/dist/client/router';
 
 const loginSelector = (state: any) => state.store.loginUser
@@ -18,9 +19,6 @@ export const Check: React.FC = () => {
   const dispatch = useDispatch()
 
   const router = useRouter()
-
-  const history = useHistory()
-  const handleLink = (path: any) => history.push(path)
 
   const login: User = useSelector(loginSelector)
   const coffee: Coffee = useSelector(coffeeSelector)

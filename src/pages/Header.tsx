@@ -2,13 +2,14 @@ import { useSelector } from 'react-redux';
 import firebase from "firebase/compat/app";
 import 'firebase/compat/auth'
 import { makeStyles, createStyles } from '@material-ui/styles';
-import { User,CartType } from '../pages/index'
+import { User,CartType } from './index'
+import type { NextPage } from 'next';
 import Link from 'next/link';
 
 const userSelector = (state:any) => state.store.loginUser
 const cartSelector = (state:any) => state.store.cart
 
-const Header:React.FC = () => {
+const Header:NextPage = () => {
   const classes = useStyle()
 
   const user:User = useSelector(userSelector)

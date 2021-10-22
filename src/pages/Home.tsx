@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import type { NextPage } from 'next';
 import Link from 'next/link';
 import { makeStyles, createStyles } from '@material-ui/styles';
 
@@ -14,7 +15,7 @@ type Coffee = {
   pic: string
 }[]
 
- const Home: React.FC = () => {
+ const Home: NextPage = () => {
   const classes = useStyle()
 
   let fetchCoffee: Coffee = useSelector(coffeeSelector)
